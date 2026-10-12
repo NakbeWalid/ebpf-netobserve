@@ -1,0 +1,13 @@
+# Build artifacts (everything generated goes to build/)
+build/
+*.o
+*.skel.h
+vmlinux.h
+
+# Binaries
+/netobserve
+/bench/connspam
+/test/hello
+
+# Benchmark raw output
+/bench/raw/

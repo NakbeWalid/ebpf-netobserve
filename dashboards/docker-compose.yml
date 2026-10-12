@@ -1,0 +1,30 @@
+# Prometheus + Grafana for ebpf-netobserve.
+#   1. on the host:   sudo ./netobserve          (serves :9400/metrics)
+#   2. here:          docker compose up -d
+#   3. Grafana:       http://localhost:3000  (anonymous admin, local use only)
+#      Prometheus:    http://localhost:9090/targets
+services:
+  prometheus:
+    image: prom/prometheus:v2.53.0
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - "9090:9090"
+    # netobserve runs on the host, not in a container: make the host
+    # reachable from the container under the name host.docker.internal.
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  grafana:
+    image: grafana/grafana:11.1.0
+    environment:
+      # No login screen: this stack is meant for a local demo only.
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: "Admin"
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
