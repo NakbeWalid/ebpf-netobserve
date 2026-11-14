@@ -3,9 +3,9 @@
 ## Résumé
 
 Tout le code des steps 0 à 7 est écrit et compile sans warning.
-**Aucun programme BPF n'a été chargé dans le noyau** : `sudo -n` échoue
-(« sudo: interactive authentication is required »). La partie noyau est donc
-NON VERIFIEE tant que `scripts/manual-tests.sh` n'a pas été lancé.
+L'agent n'a pas pu charger les programmes BPF (pas de sudo), mais
+l'utilisateur a lancé les tests manuels : voir « Vérifié par l'utilisateur »
+plus bas.
 
 | Step | Code | Vérifié par l'agent | À lancer à la main |
 |---|---|---|---|
@@ -100,3 +100,11 @@ Aucun.
 ### Step 7 - README
 - Fait. Il indique en tête que la partie noyau n'a pas été exécutée et que
   le benchmark ne contient que la base. À mettre à jour après les tests.
+- Réécrit (vitrine) : badges, mermaid, 8 captures dans `docs/screenshots/`,
+  résultats du benchmark.
+
+## Vérifié par l'utilisateur (12-13/11/2026, captures dans docs/screenshots)
+- Steps 1 à 4 : événements CONNECT/RETRANSMIT, histogramme, /metrics réel.
+- Step 5 : Prometheus + Grafana via Docker Desktop, `host.docker.internal`
+  fonctionne sans modification.
+- Step 6 : benchmark complet (surcoût ~+75 us par connexion, pire cas).
