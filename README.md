@@ -283,5 +283,3 @@ per-packet path, except the retransmission tracepoint.
 
 ---
 
-<sub>Verification status of each part (what was actually run, and how) is
-tracked in [PROGRESS.md](PROGRESS.md).</sub>
